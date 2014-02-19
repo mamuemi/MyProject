@@ -74,6 +74,19 @@ for item in source_df.title:
         i += 1
         pass
 
+#delete colon : in title column
+i=0
+for item in source_df.title:
+    if ")" in source_df.title.get_value(i)[0]:
+        temp = source_df.title.get_value(i)
+        new = temp[0].replace(":", "")
+        temp[0] = new
+        source_df.title.set_value(i,temp)        
+        i += 1
+    else:
+        i += 1
+        pass
+
 #word count for title column
 wordcountT = defaultdict(int)
 
@@ -115,4 +128,6 @@ plt.xlabel("Words")
 plt.ylabel("Counts")
 plt.show()
 
-
+#extract data as csv file for word cloud in R
+d = dict(list_orderedWordsTitleClean)
+pd.Series(d).to_csv('cleanOrderedTitleWords.csv', encoding='utf-8')
